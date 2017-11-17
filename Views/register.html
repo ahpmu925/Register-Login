@@ -1,0 +1,65 @@
+<style>
+    .submitted .ng-invalid {
+        border: 1px solid red;
+    }
+
+</style>
+
+
+<div data-ng-controller='registerController as registerVm' class="row">
+
+
+    <div ng-show="registerVm.registerForm.$submitted && registerVm.registerForm.$error.required || registerVm.registerForm.$submitted && registerVm.registerForm.$error.minlength || registerVm.registerForm.$submitted && registerVm.registerForm.$error.maxlength ||  registerVm.registerForm.$submitted && registerVm.registerForm.$error.pattern || registerVm.registerForm.$submitted && registerVm.showErrorMessage('confirmPassword','compareTo')"
+         class="alert alert-danger" role="alert">
+        <strong>Warning! </strong>
+        You must fill in all the fields
+        <ul>
+            <li ng-show="registerVm.registerForm.firstName.$error.minlength  || registerVm.registerForm.firstName.$error.maxlength || registerVm.registerForm.firstName.$error.required">First Name (*Must be between 2 and 50 characters)</li>
+            <li ng-show="registerVm.registerForm.lastName.$error.minlength || registerVm.registerForm.lastName.$error.maxlength || registerVm.registerForm.lastName.$error.required">Last Name (*Must be between 2 and 50 characters)</li>
+            <li ng-show="registerVm.registerForm.email.$error.pattern || registerVm.registerForm.email.$error.required">Email (*Must be in a valid email format. Ex: example@register.com)</li>
+            <li ng-show="registerVm.registerForm.password.$error.pattern || registerVm.registerForm.password.$error.required">Password(*Password should be at least 6 characters long, contain at least one number and one character)</li>
+            <li ng-show="registerVm.showErrorMessage('confirmPassword','compareTo') || registerVm.registerForm.confirmPassword.$error.required">Confirm Password should match the password</li>
+        </ul>
+    </div>
+
+
+    <div class="col-md-6">
+        <h2>Register</h2>
+        <form name="registerVm.registerForm" ng-class="{'submitted': submitted}" ng-submit="registerVm.onRegisterBtnClicked(registerForm.$valid)" novalidate>
+            <div class="form-group">
+                <label for="username">First name </label>
+                <input type="text" name="firstName" id="firstName"
+                       class="form-control"
+                       ng-model="registerVm.user.firstName"
+                       required data-ng-maxlength="50" data-ng-minlength="2" />
+            </div>
+            <div class="form-group">
+                <label for="username">Last name</label>
+                <input type="text" name="lastName" id="Text1" class="form-control" ng-model="registerVm.user.lastName" required data-ng-maxlength="50" data-ng-minlength="2" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control" ng-model="registerVm.user.email" pattern="^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" 
+                       name="password" id="password" class="form-control" 
+                       ng-model="registerVm.user.password" ng-pattern="registerVm.passwordFormat" required />
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" 
+                       name="confirmPassword" id="confirmPassword" class="form-control"
+                       ng-model="registerVm.user.confirmPassword" 
+                       compare-to="registerVm.user.password" required />
+            </div>
+            <div class="form-actions">
+                <button type="submit" ng-click="submitted= true;" class="btn btn-primary">Register</button>
+            </div>
+
+        </form>
+    </div>
+
+
+</div>
