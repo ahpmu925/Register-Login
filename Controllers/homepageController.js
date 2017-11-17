@@ -1,7 +1,7 @@
 (function () {
 
 
-    angular.module('quizApp')
+    angular.module('myApp')
         .controller('homepageController', HomepageController);
 
     HomepageController.$inject = ["$window", 'userService', 'toastr'];
